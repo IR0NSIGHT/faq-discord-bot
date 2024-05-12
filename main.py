@@ -125,7 +125,7 @@ async def faq_key(ctx: interactions.CommandContext, key: str):
 async def faq_set(ctx: interactions.CommandContext, key: str, type: str, text: str):
     """This is the first command I made!"""
     entry = get_def_faq(key)
-    entry[type] = text
+    entry[type] = text.replace("\\n", "\n").replace("\\t", "\t")
     success = set_faq(key, entry)
     await ctx.send(f"{key} -> {text} ({type})\n{'success' if success else 'failed'}")
 
