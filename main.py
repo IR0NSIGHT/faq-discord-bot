@@ -1,11 +1,17 @@
 # This example requires the 'message_content' intent.
 import json
+import os
 import sys
 
 import interactions
 
 
-def load_json(file_path):
+def load_faq_json(file_path):
+    if not os.path.exists(file_path):
+        # File doesn't exist, create it
+        with open(file_path, 'w') as file:
+            file.write('{}')  # Writing an empty JSON object if you want an empty file
+        print(f"Created faq {file_path}")
     with open(file_path, 'r') as file:
         data = json.load(file)
     return data
@@ -19,7 +25,7 @@ def read_file_as_string(file_path):
 
 key_file_path = "./key"
 faq_dict_path = "./faq.json"
-faq_list = load_json(faq_dict_path)
+faq_list = load_faq_json(faq_dict_path)
 reserved = ["list"]
 
 
