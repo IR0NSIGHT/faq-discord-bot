@@ -171,6 +171,38 @@ async def faq_del(ctx: interactions.CommandContext, key: str):
     await ctx.send(f"delete {key}: {'success' if success else 'failed'}")
 
 
+
+@bot.command(
+    name="faq_key",
+    description="Change key of faq entry.",
+    options=[
+        interactions.Option(
+            name="old_key",
+            description="Key of the faq",
+            type=interactions.OptionType.STRING,
+            required=True,
+        ),
+        interactions.Option(
+            name="new_key",
+            description="Key of the faq",
+            type=interactions.OptionType.STRING,
+            required=True,
+        ),
+    ],
+    default_member_permissions=interactions.Permissions.MANAGE_MESSAGES,
+)
+async def faq_change_key(ctx: interactions.CommandContext, old_key: str, new_key: str):
+    if old_key in faq_list:
+        faq = faq_list[old_key]
+        faq_list[new_key] = faq
+        del_faq(old_key)
+        await ctx.send(f"change {old_key} to {new_key}")
+    else:
+        await ctx.send(f"invalid key: {old_key}")
+
+
+
+
 @bot.command(
     name="faq_stop",
     description="Exit the bot (for autorestart).",
