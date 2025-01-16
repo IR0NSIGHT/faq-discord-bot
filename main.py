@@ -145,10 +145,9 @@ async def faq_set(ctx: interactions.CommandContext, key: str, type: str, text: s
 )
 async def faq_show(ctx: interactions.CommandContext, key: str):
     if key in faq_list:
-        faq = faq_list[key]["answer"]
-        faq = faq.replace("\n", "\\n").replace("\t", "\\t")
-        print(faq)
-        await ctx.send(f"raw entry for _{key}_:\n```\n{faq}```")
+        faq_a = faq_list[key]["answer"].replace("\n", "\\n").replace("\t", "\\t")
+        faq_q = faq_list[key]["question"].replace("\n", "\\n").replace("\t", "\\t")
+        await ctx.send(f"raw entry for _{key}_:\n```\n{faq_q}```\n```\n{faq_a}```")
     else:
         await ctx.send(f"unknown entry {key}")
 
