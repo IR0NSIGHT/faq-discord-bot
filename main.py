@@ -131,6 +131,30 @@ async def faq_set(ctx: interactions.CommandContext, key: str, type: str, text: s
 
 
 @bot.command(
+    name="faq_show",
+    description="Show raw entry for editing.",
+    options=[
+        interactions.Option(
+            name="key",
+            description="Key of the faq",
+            type=interactions.OptionType.STRING,
+            required=True,
+        ),
+    ],
+    default_member_permissions=interactions.Permissions.MANAGE_MESSAGES,
+)
+async def faq_show(ctx: interactions.CommandContext, key: str):
+    if key in faq_list:
+        faq = faq_list[key]["answer"]
+        faq = faq.replace("\n", "\\n").replace("\t", "\\t")
+        print(faq)
+        await ctx.send(f"raw entry for _{key}_:\n```\n{faq}```")
+    else:
+        await ctx.send(f"unknown entry {key}")
+
+
+
+@bot.command(
     name="faq_del",
     description="Delete faq entry.",
     options=[
