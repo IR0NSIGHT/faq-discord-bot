@@ -34,7 +34,7 @@ def handle_faq(key) -> str:
         return f"# {len(sorted_keys())} available faqs:\n```" + ", ".join(sorted_keys()) + "```"
     if key in faq_list:
         faq = faq_list[key]
-        return "## " + faq["question"] + "\n" + faq["answer"]
+        return "## " + faq["question"] + "\nkey: "+key+ "\n" + faq["answer"]
     else:
         return f"unknown argument {key}. try help"
 
